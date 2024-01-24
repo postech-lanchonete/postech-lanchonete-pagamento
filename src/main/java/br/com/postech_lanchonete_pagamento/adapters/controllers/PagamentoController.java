@@ -22,7 +22,7 @@ import java.util.UUID;
 
 //@Validated
 @RestController
-@RequestMapping("/api/pagamentos")
+@RequestMapping("/v1/pagamentos")
 public class PagamentoController implements PagamentoAPI {
     private final UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase;
     private final UseCase<StatusPagamento, List<Pagamento>> buscarPagamentosByStatusUseCase;
