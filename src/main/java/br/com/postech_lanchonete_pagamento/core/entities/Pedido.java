@@ -22,6 +22,7 @@ public class Pedido {
     }
 
     public Pedido(Cliente cliente, List<Produto> produtos) {
+        this.cliente = cliente;
         this.dataCriacao = LocalDateTime.now();
         this.produtos = produtos;
         validar();

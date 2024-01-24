@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class BuscarPagamentoByIdUseCaseTest {
+class BuscarPagamentoByIdUseCaseTest {
 
     @Mock
     private PagamentoGateway pagamentoGateway;
