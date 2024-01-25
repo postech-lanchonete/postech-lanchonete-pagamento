@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN ./gradlew build
+RUN ./gradlew assemble
 
 FROM openjdk:17-oracle
 
