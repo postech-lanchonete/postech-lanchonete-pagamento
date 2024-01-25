@@ -52,18 +52,21 @@ jobs:
         run: sudo docker push danielmaria/postech-lanchonete-pagamento:latest
 
   deploy_ec2:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && success()
     needs: build_image
     steps:
-      -  name: Checkout
-         uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Pull Image from docker hub
-        run: sudo docker pull danielmaria/lanchonetebairro-app:latest
+      - name: Pull da Imagem do Docker Hub
+        run: echo "Simulando o pull da imagem do Docker Hub."
 
-      - name: Delete old container
-        run: sudo docker rm -f lanchonetebairro-app-container || true
+      - name: Exclusão do Container Antigo
+        run: echo "Simulando a exclusão do container antigo."
 
-      - name: Run docker container
-        run: sudo docker run -d -p 8080:8080 -e MYSQL_URL=${{secrets.MYSQL_URL}} -e MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}} -e MYSQL_ROOT_USERNAME=${{secrets.MYSQL_ROOT_USERNAME}} --name lanchonetebairro-app-container danielmaria/lanchonetebairro-app:latest
+      - name: Execução do Novo Container Docker
+        run: echo "Simulando a execução do novo container Docker."
+
+      - name: Limpeza
+        run: echo "Simulando passos de limpeza."
