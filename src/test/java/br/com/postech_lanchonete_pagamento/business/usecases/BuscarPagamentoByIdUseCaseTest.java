@@ -31,7 +31,7 @@ class BuscarPagamentoByIdUseCaseTest {
     private BuscarPagamentoByIdUseCase buscarPagamentoByIdUseCase;
 
     @Test
-    public void buscarPagamentoPorId_DeveRetornarPagamentoExistente_QuandoEncontrado() {
+    void buscarPagamentoPorId_DeveRetornarPagamentoExistente_QuandoEncontrado() {
         UUID id = UUID.randomUUID();
         Pagamento pagamentoExistente = criarPagamento(id);
         when(pagamentoGateway.buscarPor(any(Example.class))).thenReturn(Collections.singletonList(pagamentoExistente));
@@ -44,7 +44,7 @@ class BuscarPagamentoByIdUseCaseTest {
     }
 
     @Test
-    public void buscarPagamentoPorId_DeveLancarNotFoundException_QuandoNaoEncontrado() {
+    void buscarPagamentoPorId_DeveLancarNotFoundException_QuandoNaoEncontrado() {
         UUID id = UUID.randomUUID();
         when(pagamentoGateway.buscarPor(any(Example.class))).thenReturn(Collections.emptyList());
 

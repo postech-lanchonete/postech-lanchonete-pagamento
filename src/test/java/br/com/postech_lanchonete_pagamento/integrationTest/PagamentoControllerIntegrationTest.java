@@ -123,6 +123,13 @@ class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    void buscarPorId_deveRetornar400_quandoIdInformadoNaoForUmUUID() throws Exception {
+        mockMvc.perform(get("/v1/pagamentos/3fa85f64")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void buscarPorId_deveRetornarPagamento_quandoIdInformadoExistente() throws Exception {
         var document = createPagamentoDocument();
         pagamentoRepository.save(document);

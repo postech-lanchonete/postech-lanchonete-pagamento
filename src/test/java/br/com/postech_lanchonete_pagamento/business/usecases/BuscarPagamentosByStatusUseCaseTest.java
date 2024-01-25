@@ -30,7 +30,7 @@ class BuscarPagamentosByStatusUseCaseTest {
     private BuscarPagamentosByStatusUseCase buscarPagamentosByStatusUseCase;
 
     @Test
-    public void buscarPagamentosPorStatus_DeveRetornarListaQuandoEncontrado() {
+    void buscarPagamentosPorStatus_DeveRetornarListaQuandoEncontrado() {
         StatusPagamento status = StatusPagamento.APROVADO;
         Pagamento pagamento1 = criarPagamento(status);
         Pagamento pagamento2 = criarPagamento(status);
@@ -45,7 +45,7 @@ class BuscarPagamentosByStatusUseCaseTest {
     }
 
     @Test
-    public void buscarPagamentosPorStatus_DeveRetornarListaVaziaQuandoNaoEncontrado() {
+    void buscarPagamentosPorStatus_DeveRetornarListaVaziaQuandoNaoEncontrado() {
         StatusPagamento status = StatusPagamento.PENDENTE;
         when(pagamentoGateway.buscarPor(any(Example.class))).thenReturn(Collections.emptyList());
 

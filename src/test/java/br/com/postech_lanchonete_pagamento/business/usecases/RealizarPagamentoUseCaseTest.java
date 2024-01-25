@@ -27,7 +27,7 @@ class RealizarPagamentoUseCaseTest {
     private RealizarPagamentoUseCase realizarPagamentoUseCase;
 
     @Test
-    public void realizarPagamento_DeveRetornarPagamentoComStatusAprovado_QuandoRealizadoComSucesso() {
+    void realizarPagamento_DeveRetornarPagamentoComStatusAprovado_QuandoRealizadoComSucesso() {
         Pagamento pagamento = PagamentoStub.createPagamentoDocument();
         BigDecimal valorTotal = BigDecimal.valueOf(25);
         when(pagamentoGateway.salvar(pagamento)).thenReturn(pagamento);

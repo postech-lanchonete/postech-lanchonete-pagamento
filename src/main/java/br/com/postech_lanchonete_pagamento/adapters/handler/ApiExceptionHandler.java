@@ -37,21 +37,10 @@ public class ApiExceptionHandler {
                 e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public final ResponseEntity<ExceptionResponse> handleTo(DataIntegrityViolationException e) {
-        return new ResponseEntity<>(new ExceptionResponse(ErrorType.PROCESS_FAILURE,
-                e.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
-    }
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleGenericException(Exception e) {
         return new ResponseEntity<>(new ExceptionResponse(ErrorType.GENERIC_SERVER_ERROR,
                 "Erro inesperado encontrado no servidor durante o processamento da solicitação"), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        String errors = ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(", "));
-        return new ResponseEntity<>(new ExceptionResponse(ErrorType.VALIDATION_FAILURE, errors), HttpStatus.BAD_REQUEST);
     }
 
     @Getter

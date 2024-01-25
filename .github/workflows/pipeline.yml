@@ -51,8 +51,6 @@ jobs:
       - name: Publish image to DockerHub
         run: sudo docker push danielmaria/postech-lanchonete-pagamento:latest
 
-
-
   deploy_ec2:
     runs-on: [self-hosted]
     if: github.ref == 'refs/heads/main' && success()
