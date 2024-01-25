@@ -24,15 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@AutoConfigureMockMvc
-//@ExtendWith(SpringExtension.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringBootTest
 @AutoConfigureMockMvc
 class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
-
-//    @Autowired
-//    MongoTemplate mongoTemplate;
 
     @Autowired
     private MockMvc mockMvc;
