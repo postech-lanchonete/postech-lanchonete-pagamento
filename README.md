@@ -13,6 +13,14 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
 ____
 
+## Sobre
+
+
+O microserviço de pagamento é uma parte fundamental da infraestrutura da lanchonete, responsável por processar transações 
+financeiras associadas aos pedidos. Ao receber informações sobre um novo pedido, o microserviço realiza a cobrança correspondente,
+interage com sistemas de pagamento e assegura a segurança e eficácia da transação, contribuindo para uma experiência de compra
+fluida e segura para os clientes.
+
 ## Pipeline
 
 Quando um desenvolvedor faz um commit no GitHub, a plataforma identifica se a ação deve ser acionada. Se sim, a pipeline inicia com o CI, que executa testes unitários. Se os testes forem bem-sucedidos, a imagem Docker é construída e enviada para o Docker Hub. Após a conclusão bem-sucedida do CI, o CD entra em ação. Ele começa baixando a imagem Docker, remove o contêiner em execução na instância EC2 e substitui-o pela nova imagem. Esse fluxo garante que seu software seja testado automaticamente e implantado de forma eficiente, melhorando a qualidade e a entrega contínua de novas funcionalidades.
@@ -97,5 +105,5 @@ As camadas do projeto foram divididas seguindo a logica proposta pela arquitetur
 
 ## Swagger
 
-A documentação técnica da API pode ser acessada na URI [/swagger-ui/index.html](http://localhost:31001/swagger-ui/index.html), quando o sistema está rodando.
+A documentação técnica da API pode ser acessada na URI [/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html), quando o sistema está rodando.
 
