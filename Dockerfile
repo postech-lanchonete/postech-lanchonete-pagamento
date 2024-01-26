@@ -10,8 +10,8 @@ FROM openjdk:17-oracle
 
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/postech-lanchonete-pagamento-1.0.0-POC.jar .
+COPY --from=builder /app/build/libs/postech-pagamento-1.0.0-POC.jar .
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "postech-lanchonete-pagamento-1.0.0-POC.jar"]
+CMD ["java", "-jar", "postech-pagamento-1.0.0-POC.jar"]

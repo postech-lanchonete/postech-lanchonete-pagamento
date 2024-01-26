@@ -42,14 +42,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Login to docker hub
+      - name: Set Image Version
+        id: set_version
+        run: echo "IMAGE_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Login no docker hub
         run: sudo docker login -u danielmaria -p ${{secrets.DOCKERHUB_TOKEN}}
 
       - name: Build docker image
-        run: sudo docker build -t danielmaria/postech-lanchonete-pagamento:latest .
+        run: sudo docker build -t danielmaria/postech-pagamento:${{ env.IMAGE_VERSION }} .
 
-      - name: Publish image to DockerHub
-        run: sudo docker push danielmaria/postech-lanchonete-pagamento:latest
+      - name: Publish image no DockerHub
+        run: |
+          sudo docker push danielmaria/postech-pagamento:${{ env.IMAGE_VERSION }}
+          sudo docker tag danielmaria/postech-pagamento:${{ env.IMAGE_VERSION }} danielmaria/postech-pagamento:latest
+          sudo docker push danielmaria/postech-pagamento:latest
+
 
   deploy_ec2:
     runs-on: ubuntu-latest
