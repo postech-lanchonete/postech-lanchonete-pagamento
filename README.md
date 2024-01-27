@@ -4,7 +4,6 @@
 
 <img src="https://img.shields.io/badge/Java-17-important.svg?logo=java" alt="shield referente a versao do java">
 <img src="https://img.shields.io/badge/Build Tool-Gradle-green.svg?logo=gradle" alt="shield referente ao uso de gradle">
-
 [<img src="https://img.shields.io/badge/dockerhub-images-blue.svg?logo=docker" alt="shield referente ao docker hub">](https://hub.docker.com/repository/docker/danielmaria/postech-lanchonete-pagamento/general) <img src="https://img.shields.io/badge/Orchestrated by-Kubernetes-green.svg?logo=kubernetes" alt="shield referente ao uso de kubernetes">
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-pagamento&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-pagamento)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-pagamento&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-pagamento)
