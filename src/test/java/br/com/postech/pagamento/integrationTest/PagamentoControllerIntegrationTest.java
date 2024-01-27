@@ -37,7 +37,7 @@ class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void pagar_deveRealizarPagamentoNoBanco_QuandoReceberDadosCorretos() throws Exception {
-        mockMvc.perform(post("/v1/pagamentos/")
+        mockMvc.perform(post("/v1/pagamentos")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(PagamentoStub.createPagamentoRequest())))
                 .andExpect(status().isCreated())
