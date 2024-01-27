@@ -129,8 +129,8 @@ sonar {
 	properties {
 		property 'sonar.host.url', 'https://sonarcloud.io'
 		property 'sonar.organization', 'postech-lanchonete'
-		property 'sonar.projectKey', 'postech-lanchonete_postech-lanchonete-pagamento'
-		property 'sonar.projectName', 'postech-lanchonete-pagamento'
+		property 'sonar.projectKey', 'postech-lanchonete_postech-pagamento'
+		property 'sonar.projectName', 'postech-pagamento'
 		property 'sonar.sources', 'src/main'
 		property 'sonar.tests', 'src/test'
 		property 'sonar.jacoco.reportPaths', 'build/reports/jacoco/jacoco.xml'
