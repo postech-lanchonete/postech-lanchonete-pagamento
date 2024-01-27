@@ -2,6 +2,7 @@ package br.com.postech.pagamento;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import org.springframework.boot.SpringApplication;
@@ -19,9 +20,10 @@ public class PagamentoApplication {
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
 				.components(new Components())
-				.info(new Info().title("Lanchonete do Bairro - Pagamento")
-						.description("API para gerenciamento de pagamentos de pedidos de uma lanchonete")
+				.info(new Info().title("Postech - Lanchonete do Bairro 🍔 - Pagamentos")
+						.description("O microserviço de pagamento é uma parte fundamental da infraestrutura da lanchonete, responsável por processar transações financeiras associadas aos pedidos.")
+						.contact(new Contact().name("Daniel Maria da Silva").url("https://github.com/postech-lanchonete"))
 						.license(new License().name("MIT License").url("https://opensource.org/licenses/MIT"))
-						.version("1.0.0-rc.01"));
+						.version("1.0.0-POC"));
 	}
 }

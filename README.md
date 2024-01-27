@@ -6,11 +6,10 @@
 <img src="https://img.shields.io/badge/Build Tool-Gradle-green.svg?logo=gradle" alt="shield referente ao uso de gradle">
 
 [<img src="https://img.shields.io/badge/dockerhub-images-blue.svg?logo=docker" alt="shield referente ao docker hub">](https://hub.docker.com/repository/docker/danielmaria/postech-lanchonete-pagamento/general) <img src="https://img.shields.io/badge/Orchestrated by-Kubernetes-green.svg?logo=kubernetes" alt="shield referente ao uso de kubernetes">
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=coverage)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=postech-lanchonete_postech-lanchonete-pagamento&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=postech-lanchonete_postech-lanchonete-pagamento)
 ____
 
 ## Sobre
@@ -41,7 +40,7 @@ A estrutura geral do projeto pode ser vista a seguir:
 |  ├── java
 |  |  └── br
 |  |     └── com
-|  |        └── postech_lanchonete_pagamento
+|  |        └── postech.pagamento
 |  |           ├── business <- 2. Application Business Rules
 |  |           |  ├── exceptions
 |  |           |  └── usecases

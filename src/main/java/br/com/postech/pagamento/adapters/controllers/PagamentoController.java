@@ -57,7 +57,7 @@ public class PagamentoController implements PagamentoAPI {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PagamentoResponseDTO pagar(@RequestBody PagamentoRequestDTO pagamentoRequest) {
         var pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
