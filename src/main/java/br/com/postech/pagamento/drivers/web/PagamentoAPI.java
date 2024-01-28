@@ -42,6 +42,15 @@ public interface PagamentoAPI {
     })
     PagamentoResponseDTO pagar(@Valid @RequestBody PagamentoRequestDTO pagamento);
 
+    @Operation(
+            summary = "Desfazer pagamento",
+            description = "Ao realizar as informacoes do pagamento, desfaça-o."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "202", description = "Pagamento realizado." )
+    })
+    PagamentoResponseDTO defazerPagamento(@Valid @RequestBody PagamentoRequestDTO pagamento);
+
 
     @Operation(
             summary = "Busca pagamento por id",

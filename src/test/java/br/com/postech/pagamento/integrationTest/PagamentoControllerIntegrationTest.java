@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,6 +48,22 @@ class PagamentoControllerIntegrationTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.valor", is(25)))
                 .andExpect(jsonPath("$.status", is("APROVADO")))
+                .andExpect(jsonPath("$.pedido.produtos", hasSize(2)))
+                .andExpect(jsonPath("$.pedido.cliente.nome", is("Antonio")))
+                .andExpect(jsonPath("$.pedido.cliente.sobrenome", is("Machado")))
+                .andExpect(jsonPath("$.pedido.cliente.cpf", is("11111111111")))
+                .andExpect(jsonPath("$.pedido.cliente.email", is("antonio.machado@gmail.com")));
+    }
+
+    @Test
+    void desfazerPagamento_deveDesfazerPagamentoNoBanco_QuandoReceberDadosCorretos() throws Exception {
+        mockMvc.perform(delete("/v1/pagamentos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(PagamentoStub.createPagamentoRequest())))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.valor", is(25)))
+                .andExpect(jsonPath("$.status", is("ROLLBACK")))
                 .andExpect(jsonPath("$.pedido.produtos", hasSize(2)))
                 .andExpect(jsonPath("$.pedido.cliente.nome", is("Antonio")))
                 .andExpect(jsonPath("$.pedido.cliente.sobrenome", is("Machado")))
