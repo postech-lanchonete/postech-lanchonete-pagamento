@@ -39,6 +39,7 @@ public class ApiExceptionHandler {
     }
 
     @Getter
+    @SuppressWarnings("unused")
     @AllArgsConstructor
     protected static class ExceptionResponse {
         private final ErrorType errorType;
