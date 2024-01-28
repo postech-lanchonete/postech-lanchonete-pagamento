@@ -2,6 +2,7 @@ package br.com.postech.pagamento.integrationTest;
 
 import br.com.postech.pagamento.adapters.repositories.PagamentoRepository;
 import br.com.postech.pagamento.stub.PagamentoStub;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.math.BigDecimal;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -21,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
+class PagamentoControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,27 +53,6 @@ class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.pedido.cliente.cpf", is("11111111111")))
                 .andExpect(jsonPath("$.pedido.cliente.email", is("antonio.machado@gmail.com")));
     }
-
-//    @Test
-//    void pagar_deveRetornar400_QuandoValorIgualAZero() throws Exception {
-//        var request = PagamentoStub.createPagamentoRequest();
-//        request.getPedido().getProdutos().forEach(produtoDTO -> produtoDTO.setPreco(BigDecimal.ZERO));
-//        request.getPedido().setCliente(null);
-//        mockMvc.perform(post("/v1/pagamentos/")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(asJsonString(request)))
-//                .andExpect(status().isBadRequest());
-//    }
-
-//    @Test
-//    void pagar_deveRetornar400_QuandoValorInferiorAZero() throws Exception {
-//        var request = PagamentoStub.createPagamentoRequest();
-//        request.getPedido().getProdutos().forEach(produtoDTO -> produtoDTO.setPreco(BigDecimal.valueOf(-1)));
-//        mockMvc.perform(post("/v1/pagamentos/")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(asJsonString(request)))
-//                .andExpect(status().isBadRequest());
-//    }
 
     @Test
     void buscarPorStatus_deveRetornarUmPagamento_quandoExistirUmPagamentoAprovado() throws Exception {
@@ -143,5 +125,13 @@ class PagamentoControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.pedido.cliente.sobrenome").value(document.getPedido().getCliente().getSobrenome()))
                 .andExpect(jsonPath("$.pedido.cliente.cpf").value(document.getPedido().getCliente().getCpf()))
                 .andExpect(jsonPath("$.pedido.cliente.email").value(document.getPedido().getCliente().getEmail()));
+    }
+
+    private String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

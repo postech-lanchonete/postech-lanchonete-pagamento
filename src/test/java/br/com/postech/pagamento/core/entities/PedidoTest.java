@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -28,7 +29,10 @@ class PedidoTest {
     void criarPedidoSemProdutosDeveLancarExcecao() {
         Cliente cliente = mock(Cliente.class);
 
-        assertThrows(NegocioException.class, () -> new Pedido(cliente, Collections.emptyList()));
+        assertThrows(NegocioException.class, () -> {
+            List<Produto> produtosVazia = Collections.emptyList();
+            new Pedido(cliente, produtosVazia);
+        });
     }
 
     @Test

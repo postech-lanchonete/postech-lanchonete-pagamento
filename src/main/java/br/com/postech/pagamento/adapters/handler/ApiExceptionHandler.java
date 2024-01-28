@@ -40,12 +40,12 @@ public class ApiExceptionHandler {
 
     @Getter
     @AllArgsConstructor
-    public static class ExceptionResponse {
+    protected static class ExceptionResponse {
         private final ErrorType errorType;
         private String errorMessage;
     }
 
-    public enum ErrorType {
+    protected enum ErrorType {
         RESOURCE_NOT_FOUND, PROCESS_FAILURE, VALIDATION_FAILURE, GENERIC_SERVER_ERROR
     }
 }
