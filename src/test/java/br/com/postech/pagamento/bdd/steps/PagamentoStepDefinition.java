@@ -24,6 +24,8 @@ public class PagamentoStepDefinition {
     PagamentoRequestDTO pagamentoRequestDTO = new PagamentoRequestDTO();
 
     private RequestHelper<PagamentoResponseDTO> requestHelper;
+    private RequestHelper<PagamentoResponseDTO[]> requestListHelper;
+
 
     @Dado("que um novo pagamento foi criado")
     public void queUmNovoPagamentoFoiCriado() {
@@ -107,9 +109,19 @@ public class PagamentoStepDefinition {
 
     @Quando("for requisitado a busca via status {string}")
     public void forRequisitadoABuscaViaStatus(String status) {
-        this.requestHelper = RequestHelper
+        this.requestListHelper = RequestHelper
                 .realizar("/v1/pagamentos/status/" + status,
-                        HttpMethod.GET, null, PagamentoResponseDTO.class);
+                        HttpMethod.GET, null, PagamentoResponseDTO[].class);
     }
 
+    @Entao("nao deve retornar um pagamento")
+    public void naoDeveRetornarUmCliente() {
+        Assert.assertNull("Resposta não é nula", this.requestHelper.getSuccessResponse());
+
+    }
+
+    @Entao("deve retornar os pagamento")
+    public void deveRetornarOsPagamento() {
+        Assert.assertNotNull("Resposta é nula", this.requestListHelper.getSuccessResponse().getBody());
+    }
 }

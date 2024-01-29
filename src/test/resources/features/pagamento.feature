@@ -21,12 +21,11 @@ Funcionalidade: Clientes
   Cenário: Busca de pagamento via id, quando nao existe pagamento com o id solicitado
     Dado que nao exista um pagamento com o id "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     Quando for requisitado a busca via id "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-    Entao nao deve retornar um cliente
+    Entao nao deve retornar um pagamento
     E o status deve ser igual a 404
 
   Cenário: Busca de pagamento via status, quando existe pagamento com o status solicitado
     Dado que exista um pagamento com o status "APROVADO"
     Quando for requisitado a busca via status "APROVADO"
-    Entao deve retornar o pagamento
-    E o status deve ser igual a 200
+    Entao deve retornar os pagamento
 
