@@ -1,4 +1,4 @@
-package br.com.postech.pagamento.adapters.controllers;
+package br.com.postech.pagamento.adapters.input.controllers;
 
 import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
@@ -7,7 +7,7 @@ import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
-import br.com.postech.pagamento.drivers.web.PagamentoAPI;
+import br.com.postech.pagamento.drivers.web.PagamentoQueryAPI;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,23 +23,17 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/pagamentos")
-public class PagamentoController implements PagamentoAPI {
+public class PagamentoQueryController implements PagamentoQueryAPI {
     private final UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase;
     private final UseCase<StatusPagamento, List<Pagamento>> buscarPagamentosByStatusUseCase;
-    private final UseCase<Pagamento, Pagamento> realizarPagamentoUseCase;
-    private final UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase;
 
     private final PagamentoAdapter pagamentoAdapter;
 
-    public PagamentoController(@Qualifier("buscarPagamentoByIdUseCase") UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase,
-                               @Qualifier("buscarPagamentoByStatusUseCase") UseCase<StatusPagamento, List<Pagamento>> buscarPagamentosByStatusUseCase,
-                               @Qualifier("realizarPagamentoUseCase") UseCase<Pagamento, Pagamento> realizarPagamentoUseCase,
-                               @Qualifier("desfazerPagamentoUseCase") UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase,
-                               PagamentoAdapter pagamentoAdapter) {
+    public PagamentoQueryController(@Qualifier("buscarPagamentoByIdUseCase") UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase,
+                                    @Qualifier("buscarPagamentoByStatusUseCase") UseCase<StatusPagamento, List<Pagamento>> buscarPagamentosByStatusUseCase,
+                                    PagamentoAdapter pagamentoAdapter) {
         this.buscarPagamentoByIdUseCase = buscarPagamentoByIdUseCase;
         this.buscarPagamentosByStatusUseCase = buscarPagamentosByStatusUseCase;
-        this.realizarPagamentoUseCase = realizarPagamentoUseCase;
-        this.desfazerPagamentoUseCase = desfazerPagamentoUseCase;
         this.pagamentoAdapter = pagamentoAdapter;
     }
 
@@ -57,24 +51,6 @@ public class PagamentoController implements PagamentoAPI {
         } catch (IllegalArgumentException exception) {
             throw new BadRequestException("O status informado não corresponde a um status válido.");
         }
-    }
-
-    @Override
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PagamentoResponseDTO pagar(@RequestBody PagamentoRequestDTO pagamentoRequest) {
-        var pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
-        var pagamentoResponse = realizarPagamentoUseCase.realizar(pagamento);
-        return pagamentoAdapter.toDto(pagamentoResponse);
-    }
-
-    @Override
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public PagamentoResponseDTO defazerPagamento(@RequestBody PagamentoRequestDTO pagamentoRequest) {
-        var pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
-        var pagamentoResponse = desfazerPagamentoUseCase.realizar(pagamento);
-        return pagamentoAdapter.toDto(pagamentoResponse);
     }
 
     @Override

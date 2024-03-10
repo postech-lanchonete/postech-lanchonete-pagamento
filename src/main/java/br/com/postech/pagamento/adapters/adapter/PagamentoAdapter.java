@@ -13,5 +13,6 @@ public interface PagamentoAdapter {
     PagamentoResponseDTO toDto(Pagamento pagamento);
 
     @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "pedido", source = "pedido")
     Pagamento toEntity(PagamentoRequestDTO pagamentoRequestDTO);
 }

@@ -25,7 +25,7 @@ public class RealizarPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
         pagamento.setValor(valorTotal);
         pagamento.setStatus(StatusPagamento.PENDENTE);
         this.pagamentoGateway.salvar(pagamento);
-        log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getCliente().getCpf());
+        log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getIdCliente());
         pagamento.setStatus(StatusPagamento.APROVADO);
         log.info("Pagamento realizado com sucesso");
         return this.pagamentoGateway.salvar(pagamento);

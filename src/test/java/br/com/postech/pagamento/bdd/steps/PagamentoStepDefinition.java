@@ -31,9 +31,8 @@ public class PagamentoStepDefinition {
     public void queUmNovoPagamentoFoiCriado() {
         PedidoDTO pedidoDTO = new PedidoDTO();
         pedidoDTO.setProdutos(new ArrayList<>());
-        ClienteDTO clienteDTO = new ClienteDTO("Antonio", "Machado", "11111111111", "antonio.machado@gmail.com");
         var requestDTO = new PagamentoRequestDTO();
-        pedidoDTO.setCliente(clienteDTO);
+        pedidoDTO.setId(1L);
         requestDTO.setPedido(pedidoDTO);
         this.pagamentoRequestDTO = requestDTO;
     }

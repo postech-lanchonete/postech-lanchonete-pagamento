@@ -26,7 +26,7 @@ public class DesfazerPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
         pagamento.setStatus(StatusPagamento.ROLLBACK_PENDENTE);
         this.pagamentoGateway.salvar(pagamento);
         log.info("Realizando rollback do pagamento do cliente {} no valor de {}",
-                pagamento.getPedido().getCliente().getCpf(),
+                pagamento.getPedido().getIdCliente(),
                 valorTotal);
         pagamento.setStatus(StatusPagamento.ROLLBACK);
         log.info("Pagamento desfeito com sucesso");
