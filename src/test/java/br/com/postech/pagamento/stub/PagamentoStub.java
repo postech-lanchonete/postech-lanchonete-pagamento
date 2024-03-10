@@ -1,13 +1,12 @@
 package br.com.postech.pagamento.stub;
 
-import br.com.postech.pagamento.adapters.dto.ClienteDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.dto.PedidoDTO;
 import br.com.postech.pagamento.adapters.dto.ProdutoDTO;
-import br.com.postech.pagamento.core.entities.Pedido;
-import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.core.entities.Pagamento;
+import br.com.postech.pagamento.core.entities.Pedido;
 import br.com.postech.pagamento.core.entities.Produto;
+import br.com.postech.pagamento.core.enums.StatusPagamento;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

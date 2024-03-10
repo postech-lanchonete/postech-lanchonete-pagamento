@@ -1,13 +1,9 @@
 package br.com.postech.pagamento.drivers.web;
 
-import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
-import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "Pagamentos - Command (Kafka)", description = "Todas as operações referentes a comandos de pagamento")
 public interface PagamentoCommandAPI {

@@ -1,6 +1,5 @@
 package br.com.postech.pagamento.bdd.steps;
 
-import br.com.postech.pagamento.adapters.dto.ClienteDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.adapters.dto.PedidoDTO;

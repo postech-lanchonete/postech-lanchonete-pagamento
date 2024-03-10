@@ -5,7 +5,6 @@ import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
 import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
-import br.com.postech.pagamento.core.enums.StatusDoPedido;
 import br.com.postech.pagamento.drivers.web.PagamentoCommandAPI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

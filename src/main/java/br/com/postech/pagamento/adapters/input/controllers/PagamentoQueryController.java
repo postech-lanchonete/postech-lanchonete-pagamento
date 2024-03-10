@@ -1,21 +1,15 @@
 package br.com.postech.pagamento.adapters.input.controllers;
 
-import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
-import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
+import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.drivers.web.PagamentoQueryAPI;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

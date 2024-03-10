@@ -1,9 +1,9 @@
 package br.com.postech.pagamento.business.usecases;
 
 import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
-import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.entities.Produto;
+import br.com.postech.pagamento.core.enums.StatusPagamento;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

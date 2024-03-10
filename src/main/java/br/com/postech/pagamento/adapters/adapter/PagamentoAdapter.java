@@ -1,7 +1,7 @@
 package br.com.postech.pagamento.adapters.adapter;
 
-import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
+import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
