@@ -1,6 +1,7 @@
 package br.com.postech.pagamento.adapters.gateways.implementation;
 
 import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,10 +30,10 @@ public class PedidoGatewayImpl implements PedidoGateway {
             kafkaTemplate.send(TOPIC_PAGAMENTO, jsonPagamento);
         } catch (JsonProcessingException e) {
             log.error("Erro ao serializar o objeto PagamentoRequestDTO para JSON", e);
-            throw new RuntimeException("Erro ao serializar o objeto PagamentoRequestDTO para JSON", e);
+            throw new BadRequestException("Erro ao serializar o objeto PagamentoRequestDTO para JSON");
         } catch (Exception e) {
             log.error("Erro ao enviar o pagamento para o Kafka", e);
-            throw new RuntimeException("Erro ao enviar o pagamento ", e);
+            throw new BadRequestException("Erro ao enviar o pagamento ");
         }
     }
 

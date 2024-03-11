@@ -3,6 +3,7 @@ package br.com.postech.pagamento.adapters.input.subscribers;
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.drivers.web.PagamentoCommandAPI;
@@ -17,17 +18,14 @@ import org.springframework.stereotype.Component;
 public class PagamentoCommandSubscriber implements PagamentoCommandAPI {
 
     private final UseCase<Pagamento, Pagamento> realizarPagamentoUseCase;
-    private final UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase;
     private final PedidoGateway pedidoGateway;
     private final ObjectMapper objectMapper;
     private final PagamentoAdapter pagamentoAdapter;
 
 
     public PagamentoCommandSubscriber(@Qualifier("realizarPagamentoUseCase") UseCase<Pagamento, Pagamento> realizarPagamentoUseCase,
-                                      @Qualifier("desfazerPagamentoUseCase") UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase,
                                       PedidoGateway pedidoGateway, ObjectMapper objectMapper, PagamentoAdapter pagamentoAdapter) {
         this.realizarPagamentoUseCase = realizarPagamentoUseCase;
-        this.desfazerPagamentoUseCase = desfazerPagamentoUseCase;
         this.pedidoGateway = pedidoGateway;
         this.objectMapper = objectMapper;
         this.pagamentoAdapter = pagamentoAdapter;
@@ -40,8 +38,7 @@ public class PagamentoCommandSubscriber implements PagamentoCommandAPI {
              log.info("Received Message: " + pagamentoJson);
              PagamentoRequestDTO pagamentoRequest = objectMapper.readValue(pagamentoJson, PagamentoRequestDTO.class);
              if (pagamentoRequest.getPedido().getIdCliente() == 2L) {
-                log.error("erro simulado");
-                throw new RuntimeException("Erro ao realizar pagamento");
+                throw new BadRequestException("Erro simulado ao realizar pagamento");
              }
              Pagamento pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
              Pagamento pagamentoRealizado = realizarPagamentoUseCase.realizar(pagamento);
