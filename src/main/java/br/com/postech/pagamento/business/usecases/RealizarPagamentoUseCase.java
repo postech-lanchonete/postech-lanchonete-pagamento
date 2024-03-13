@@ -1,9 +1,9 @@
 package br.com.postech.pagamento.business.usecases;
 
 import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
-import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.entities.Produto;
+import br.com.postech.pagamento.core.enums.StatusPagamento;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class RealizarPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
         pagamento.setValor(valorTotal);
         pagamento.setStatus(StatusPagamento.PENDENTE);
         this.pagamentoGateway.salvar(pagamento);
-        log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getCliente().getCpf());
+        log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getIdCliente());
         pagamento.setStatus(StatusPagamento.APROVADO);
         log.info("Pagamento realizado com sucesso");
         return this.pagamentoGateway.salvar(pagamento);

@@ -14,15 +14,16 @@ import java.util.Objects;
 @Setter
 @SuppressWarnings("unused")
 public class Pedido {
+    private Long id;
     private List<Produto> produtos;
-    private Cliente cliente;
+    private Long idCliente;
     private LocalDateTime dataCriacao;
 
     public Pedido() {
     }
 
-    public Pedido(Cliente cliente, List<Produto> produtos) {
-        this.cliente = cliente;
+    public Pedido(Long cliente, List<Produto> produtos) {
+        this.idCliente = cliente;
         this.dataCriacao = LocalDateTime.now();
         this.produtos = produtos;
         validar();

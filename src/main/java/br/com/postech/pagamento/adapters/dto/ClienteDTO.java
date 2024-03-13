@@ -12,12 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteDTO {
-    private String nome;
-
-    private String sobrenome;
-
-    private String cpf;
-
-    private String email;
-
+    private Long id;
 }

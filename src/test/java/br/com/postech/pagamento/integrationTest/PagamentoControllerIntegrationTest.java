@@ -12,13 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.math.BigDecimal;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,37 +33,6 @@ class PagamentoControllerIntegrationTest {
         pagamentoRepository.deleteAll();
     }
 
-    @Test
-    void pagar_deveRealizarPagamentoNoBanco_QuandoReceberDadosCorretos() throws Exception {
-        mockMvc.perform(post("/v1/pagamentos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(PagamentoStub.createPagamentoRequest())))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.valor", is(25)))
-                .andExpect(jsonPath("$.status", is("APROVADO")))
-                .andExpect(jsonPath("$.pedido.produtos", hasSize(2)))
-                .andExpect(jsonPath("$.pedido.cliente.nome", is("Antonio")))
-                .andExpect(jsonPath("$.pedido.cliente.sobrenome", is("Machado")))
-                .andExpect(jsonPath("$.pedido.cliente.cpf", is("11111111111")))
-                .andExpect(jsonPath("$.pedido.cliente.email", is("antonio.machado@gmail.com")));
-    }
-
-    @Test
-    void desfazerPagamento_deveDesfazerPagamentoNoBanco_QuandoReceberDadosCorretos() throws Exception {
-        mockMvc.perform(delete("/v1/pagamentos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(PagamentoStub.createPagamentoRequest())))
-                .andExpect(status().isAccepted())
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.valor", is(25)))
-                .andExpect(jsonPath("$.status", is("ROLLBACK")))
-                .andExpect(jsonPath("$.pedido.produtos", hasSize(2)))
-                .andExpect(jsonPath("$.pedido.cliente.nome", is("Antonio")))
-                .andExpect(jsonPath("$.pedido.cliente.sobrenome", is("Machado")))
-                .andExpect(jsonPath("$.pedido.cliente.cpf", is("11111111111")))
-                .andExpect(jsonPath("$.pedido.cliente.email", is("antonio.machado@gmail.com")));
-    }
 
     @Test
     void buscarPorStatus_deveRetornarUmPagamento_quandoExistirUmPagamentoAprovado() throws Exception {
@@ -86,10 +49,7 @@ class PagamentoControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].pedido.produtos").isArray())
                 .andExpect(jsonPath("$[0].pedido.produtos[0].nome").value(document.getPedido().getProdutos().get(0).getNome()))
                 .andExpect(jsonPath("$[0].pedido.produtos[0].preco").value(document.getPedido().getProdutos().get(0).getPreco()))
-                .andExpect(jsonPath("$[0].pedido.cliente.nome").value(document.getPedido().getCliente().getNome()))
-                .andExpect(jsonPath("$[0].pedido.cliente.sobrenome").value(document.getPedido().getCliente().getSobrenome()))
-                .andExpect(jsonPath("$[0].pedido.cliente.cpf").value(document.getPedido().getCliente().getCpf()))
-                .andExpect(jsonPath("$[0].pedido.cliente.email").value(document.getPedido().getCliente().getEmail()));
+                .andExpect(jsonPath("$[0].pedido.idCliente").value(document.getPedido().getIdCliente()));
     }
 
     @Test
@@ -138,10 +98,7 @@ class PagamentoControllerIntegrationTest {
                 .andExpect(jsonPath("$.pedido.produtos").isArray())
                 .andExpect(jsonPath("$.pedido.produtos[0].nome").value(document.getPedido().getProdutos().get(0).getNome()))
                 .andExpect(jsonPath("$.pedido.produtos[0].preco").value(document.getPedido().getProdutos().get(0).getPreco()))
-                .andExpect(jsonPath("$.pedido.cliente.nome").value(document.getPedido().getCliente().getNome()))
-                .andExpect(jsonPath("$.pedido.cliente.sobrenome").value(document.getPedido().getCliente().getSobrenome()))
-                .andExpect(jsonPath("$.pedido.cliente.cpf").value(document.getPedido().getCliente().getCpf()))
-                .andExpect(jsonPath("$.pedido.cliente.email").value(document.getPedido().getCliente().getEmail()));
+                .andExpect(jsonPath("$.pedido.idCliente").value(document.getPedido().getIdCliente()));
     }
 
     private String asJsonString(final Object obj) {

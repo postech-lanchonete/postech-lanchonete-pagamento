@@ -1,6 +1,5 @@
 package br.com.postech.pagamento.bdd.steps;
 
-import br.com.postech.pagamento.adapters.dto.ClienteDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.dto.PagamentoResponseDTO;
 import br.com.postech.pagamento.adapters.dto.PedidoDTO;
@@ -31,9 +30,8 @@ public class PagamentoStepDefinition {
     public void queUmNovoPagamentoFoiCriado() {
         PedidoDTO pedidoDTO = new PedidoDTO();
         pedidoDTO.setProdutos(new ArrayList<>());
-        ClienteDTO clienteDTO = new ClienteDTO("Antonio", "Machado", "11111111111", "antonio.machado@gmail.com");
         var requestDTO = new PagamentoRequestDTO();
-        pedidoDTO.setCliente(clienteDTO);
+        pedidoDTO.setId(1L);
         requestDTO.setPedido(pedidoDTO);
         this.pagamentoRequestDTO = requestDTO;
     }

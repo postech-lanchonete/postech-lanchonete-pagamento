@@ -15,8 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoDTO {
+    private Long id;
     @NotEmpty(message = "Lista de produtos é obrigatória")
     private List<ProdutoDTO> produtos;
     @NotNull(message = "Cliente do produto é obrigatório")
-    private ClienteDTO cliente;
+    private Long idCliente;
 }
