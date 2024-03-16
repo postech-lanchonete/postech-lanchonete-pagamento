@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class PedidoGatewayImpl implements PedidoGateway {
 
     private static final String TOPIC_PAGAMENTO = "postech-pagamento-output";
-    private static final String TOPIC_PAGAMENTO_ERRO = "postech-pagamento-output-error";
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
@@ -37,8 +36,4 @@ public class PedidoGatewayImpl implements PedidoGateway {
         }
     }
 
-    @Override
-    public void enviarErroPagamento(String pagamentoJson) {
-        kafkaTemplate.send(TOPIC_PAGAMENTO_ERRO, pagamentoJson);
-    }
 }

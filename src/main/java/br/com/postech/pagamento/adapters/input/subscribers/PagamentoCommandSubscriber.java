@@ -2,8 +2,9 @@ package br.com.postech.pagamento.adapters.input.subscribers;
 
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
+import br.com.postech.pagamento.adapters.gateways.DeadLetterQueueGateway;
+import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
 import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
-import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.drivers.web.PagamentoCommandAPI;
@@ -12,40 +13,38 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
 public class PagamentoCommandSubscriber implements PagamentoCommandAPI {
-
-    private final UseCase<Pagamento, Pagamento> realizarPagamentoUseCase;
-    private final PedidoGateway pedidoGateway;
+    public static final String TOPIC_PAGAMENTO_INPUT = "postech-pagamento-input";
+    public static final String TOPIC_PAGAMENTO_INPUT_DLQ = "postech-pagamento-input-dlq";
     private final ObjectMapper objectMapper;
     private final PagamentoAdapter pagamentoAdapter;
+    private final PagamentoGateway pagamentoGateway;
+    private final DeadLetterQueueGateway deadLetterQueueGateway;
 
 
-    public PagamentoCommandSubscriber(@Qualifier("realizarPagamentoUseCase") UseCase<Pagamento, Pagamento> realizarPagamentoUseCase,
-                                      PedidoGateway pedidoGateway, ObjectMapper objectMapper, PagamentoAdapter pagamentoAdapter) {
-        this.realizarPagamentoUseCase = realizarPagamentoUseCase;
-        this.pedidoGateway = pedidoGateway;
+    public PagamentoCommandSubscriber(ObjectMapper objectMapper, PagamentoAdapter pagamentoAdapter, PagamentoGateway pagamentoGateway, DeadLetterQueueGateway deadLetterQueueGateway) {
         this.objectMapper = objectMapper;
         this.pagamentoAdapter = pagamentoAdapter;
+        this.pagamentoGateway = pagamentoGateway;
+        this.deadLetterQueueGateway = deadLetterQueueGateway;
     }
 
     @Override
-    @KafkaListener(topics = "postech-pagamento-input", groupId = "postech-group-pagamento")
+    @Transactional
+    @KafkaListener(topics = TOPIC_PAGAMENTO_INPUT, groupId = "postech-group-pagamento")
     public void pagar(String pagamentoJson) {
          try {
              log.info("Received Message: " + pagamentoJson);
              PagamentoRequestDTO pagamentoRequest = objectMapper.readValue(pagamentoJson, PagamentoRequestDTO.class);
-             if (pagamentoRequest.getPedido().getIdCliente() == 2L) {
-                throw new BadRequestException("Erro simulado ao realizar pagamento");
-             }
              Pagamento pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
-             Pagamento pagamentoRealizado = realizarPagamentoUseCase.realizar(pagamento);
-             pedidoGateway.enviarConfirmacaoPagamento(pagamentoRealizado);
+             pagamentoGateway.salvar(pagamento);
         } catch (Exception e) {
             log.error("Erro ao processar a mensagem JSON: " + e.getMessage());
-            pedidoGateway.enviarErroPagamento(pagamentoJson);
+             deadLetterQueueGateway.enviar(TOPIC_PAGAMENTO_INPUT_DLQ, pagamentoJson);
         }
     }
 }

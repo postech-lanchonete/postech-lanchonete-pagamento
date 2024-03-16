@@ -3,6 +3,8 @@ package br.com.postech.pagamento.adapters.input.subscribers;
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
 import br.com.postech.pagamento.adapters.dto.PedidoDTO;
+import br.com.postech.pagamento.adapters.gateways.DeadLetterQueueGateway;
+import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
 import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
 import br.com.postech.pagamento.business.usecases.RealizarPagamentoUseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
@@ -16,15 +18,13 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PagamentoCommandSubscriberTest {
-
-    @Mock
-    private RealizarPagamentoUseCase realizarPagamentoUseCase;
     @Spy
     private ObjectMapper objectMapper;
 
@@ -32,7 +32,9 @@ class PagamentoCommandSubscriberTest {
     private PagamentoAdapter pagamentoAdapter;
 
     @Mock
-    private PedidoGateway pedidoGateway;
+    private PagamentoGateway pagamentoGateway;
+    @Mock
+    private DeadLetterQueueGateway deadLetterQueueGateway;
 
     @InjectMocks
     private PagamentoCommandSubscriber producaoSubscriber;
@@ -46,7 +48,7 @@ class PagamentoCommandSubscriberTest {
 
         producaoSubscriber.pagar(pagamentoJson);
 
-        verify(pedidoGateway, times(1)).enviarConfirmacaoPagamento(any());
+        verify(pagamentoGateway, times(1)).salvar(any());
     }
 
     @Test
@@ -55,6 +57,6 @@ class PagamentoCommandSubscriberTest {
 
         producaoSubscriber.pagar(pagamentoJson);
 
-        verify(pedidoGateway, times(1)).enviarErroPagamento(pagamentoJson);
+        verify(deadLetterQueueGateway, times(1)).enviar(anyString(), anyString());
     }
 }

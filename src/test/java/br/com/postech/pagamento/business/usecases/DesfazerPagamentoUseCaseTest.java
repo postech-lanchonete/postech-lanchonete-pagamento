@@ -34,7 +34,7 @@ class DesfazerPagamentoUseCaseTest {
 
         Pagamento resultado = desfazerPagamentoUseCase.realizar(pagamento);
 
-        assertEquals(StatusPagamento.ROLLBACK, resultado.getStatus());
+        assertEquals(StatusPagamento.REPROVADO, resultado.getStatus());
         assertEquals(valorTotal, resultado.getValor());
         verify(pagamentoGateway, times(2)).salvar(pagamento);
     }

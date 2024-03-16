@@ -70,11 +70,4 @@ class PedidoGatewayImplTest {
         verify(kafkaTemplate, times(0)).send(anyString(), anyString());
     }
 
-    @Test
-    void enviarErroPagamento_DeveRetornarRespostaCorreta() {
-        String jsonPagamento = "{\"id\":1}";
-        producaoGateway.enviarErroPagamento(jsonPagamento);
-
-        verify(kafkaTemplate, times(1)).send(anyString(), eq(jsonPagamento));
-    }
 }

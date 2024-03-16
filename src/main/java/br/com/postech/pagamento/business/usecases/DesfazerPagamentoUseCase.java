@@ -23,12 +23,12 @@ public class DesfazerPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
                 .map(Produto::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         pagamento.setValor(valorTotal);
-        pagamento.setStatus(StatusPagamento.ROLLBACK_PENDENTE);
+        pagamento.setStatus(StatusPagamento.REPROVADO_PENDENTE);
         this.pagamentoGateway.salvar(pagamento);
         log.info("Realizando rollback do pagamento do cliente {} no valor de {}",
                 pagamento.getPedido().getIdCliente(),
                 valorTotal);
-        pagamento.setStatus(StatusPagamento.ROLLBACK);
+        pagamento.setStatus(StatusPagamento.REPROVADO);
         log.info("Pagamento desfeito com sucesso");
         return this.pagamentoGateway.salvar(pagamento);
     }
