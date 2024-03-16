@@ -20,7 +20,8 @@ public class AlterarStatusUseCase implements UseCaseSemResposta<AlteraStatusDTO>
 
     public AlterarStatusUseCase(@Qualifier("realizarPagamentoUseCase") UseCase<Pagamento, Pagamento> realizarPagamentoUseCase,
                                 @Qualifier("desfazerPagamentoUseCase") UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase,
-                                @Qualifier("buscarPagamentoByIdUseCase") UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase, PedidoGateway pedidoGateway) {
+                                @Qualifier("buscarPagamentoByIdUseCase") UseCase<UUID, Pagamento> buscarPagamentoByIdUseCase,
+                                PedidoGateway pedidoGateway) {
         this.realizarPagamentoUseCase = realizarPagamentoUseCase;
         this.desfazerPagamentoUseCase = desfazerPagamentoUseCase;
         this.buscarPagamentoByIdUseCase = buscarPagamentoByIdUseCase;
