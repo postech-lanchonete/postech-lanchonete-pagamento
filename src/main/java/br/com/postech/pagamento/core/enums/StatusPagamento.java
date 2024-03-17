@@ -4,6 +4,5 @@ public enum StatusPagamento {
     PENDENTE,
     APROVADO,
     REPROVADO,
-    ROLLBACK_PENDENTE,
-    ROLLBACK
+    REPROVADO_PENDENTE
 }

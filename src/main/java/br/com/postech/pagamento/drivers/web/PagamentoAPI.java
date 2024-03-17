@@ -14,7 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Tag(name = "Pagamentos", description = "Todas as operações referentes a pagamento")
-public interface PagamentoQueryAPI {
+public interface PagamentoAPI {
+
+    @Operation(
+            summary = "Altera o status de um pagamento",
+            description = "Realiza uma alteracao do status do pagamento utilizando o id do mesmo."
+    )
+    @ApiResponses({@ApiResponse(responseCode = "202", content = {@Content(mediaType = "application/json")})})
+    void alterarStatus(@PathVariable(name = "id") String id,
+                     @Parameter(description = "Status do pagamento, podendo ser 'APROVADO' ou 'REPROVADO'", example = "APROVADO")
+                     @PathVariable(name = "status") String status);
 
     @Operation(
             summary = "Busca pagamentos",
@@ -28,10 +37,7 @@ public interface PagamentoQueryAPI {
             }),
     })
     List<PagamentoResponseDTO> buscarPorStatus(@Parameter(description = "Status do pagamento, podendo ser 'PENDENTE', 'APROVADO', ou 'REPROVADO'", example = "APROVADO", schema = @Schema(type = "string", allowableValues = {"PENDENTE", "APROVADO", "REPROVADO"}))
-                                                @PathVariable(name = "status") String status);
-
-
-
+                                               @PathVariable(name = "status") String status);
 
     @Operation(
             summary = "Busca pagamento por id",

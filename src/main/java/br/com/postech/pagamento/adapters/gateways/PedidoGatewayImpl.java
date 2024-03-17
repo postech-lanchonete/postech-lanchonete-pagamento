@@ -1,6 +1,6 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
-import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.drivers.external.PedidoGateway;
 import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class PedidoGatewayImpl implements PedidoGateway {
 
     private static final String TOPIC_PAGAMENTO = "postech-pagamento-output";
-    private static final String TOPIC_PAGAMENTO_ERRO = "postech-pagamento-output-error";
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
@@ -37,8 +36,4 @@ public class PedidoGatewayImpl implements PedidoGateway {
         }
     }
 
-    @Override
-    public void enviarErroPagamento(String pagamentoJson) {
-        kafkaTemplate.send(TOPIC_PAGAMENTO_ERRO, pagamentoJson);
-    }
 }

@@ -1,6 +1,7 @@
 package br.com.postech.pagamento.business.usecases;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
+import br.com.postech.pagamento.business.usecases.implementation.DesfazerPagamentoUseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.stub.PagamentoStub;
@@ -34,7 +35,7 @@ class DesfazerPagamentoUseCaseTest {
 
         Pagamento resultado = desfazerPagamentoUseCase.realizar(pagamento);
 
-        assertEquals(StatusPagamento.ROLLBACK, resultado.getStatus());
+        assertEquals(StatusPagamento.REPROVADO, resultado.getStatus());
         assertEquals(valorTotal, resultado.getValor());
         verify(pagamentoGateway, times(2)).salvar(pagamento);
     }

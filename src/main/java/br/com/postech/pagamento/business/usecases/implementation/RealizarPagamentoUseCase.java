@@ -1,6 +1,7 @@
-package br.com.postech.pagamento.business.usecases;
+package br.com.postech.pagamento.business.usecases.implementation;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
+import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.entities.Produto;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
@@ -12,8 +13,8 @@ import java.math.BigDecimal;
 
 @Slf4j
 @AllArgsConstructor
-@Component("desfazerPagamentoUseCase")
-public class DesfazerPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
+@Component("realizarPagamentoUseCase")
+public class RealizarPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
 
     private final PagamentoGateway pagamentoGateway;
 
@@ -23,13 +24,11 @@ public class DesfazerPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
                 .map(Produto::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         pagamento.setValor(valorTotal);
-        pagamento.setStatus(StatusPagamento.ROLLBACK_PENDENTE);
+        pagamento.setStatus(StatusPagamento.PENDENTE);
         this.pagamentoGateway.salvar(pagamento);
-        log.info("Realizando rollback do pagamento do cliente {} no valor de {}",
-                pagamento.getPedido().getIdCliente(),
-                valorTotal);
-        pagamento.setStatus(StatusPagamento.ROLLBACK);
-        log.info("Pagamento desfeito com sucesso");
+        log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getIdCliente());
+        pagamento.setStatus(StatusPagamento.APROVADO);
+        log.info("Pagamento realizado com sucesso");
         return this.pagamentoGateway.salvar(pagamento);
     }
 }

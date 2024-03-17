@@ -1,8 +1,7 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
 import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.core.entities.Pagamento;
-import br.com.postech.pagamento.core.entities.Pedido;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -70,11 +69,4 @@ class PedidoGatewayImplTest {
         verify(kafkaTemplate, times(0)).send(anyString(), anyString());
     }
 
-    @Test
-    void enviarErroPagamento_DeveRetornarRespostaCorreta() {
-        String jsonPagamento = "{\"id\":1}";
-        producaoGateway.enviarErroPagamento(jsonPagamento);
-
-        verify(kafkaTemplate, times(1)).send(anyString(), eq(jsonPagamento));
-    }
 }
