@@ -1,7 +1,8 @@
-package br.com.postech.pagamento.business.usecases;
+package br.com.postech.pagamento.business.usecases.implementation;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
 import br.com.postech.pagamento.business.exceptions.NotFoundException;
+import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

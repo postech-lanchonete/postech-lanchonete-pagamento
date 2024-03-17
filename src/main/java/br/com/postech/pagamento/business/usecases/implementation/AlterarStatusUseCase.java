@@ -1,7 +1,9 @@
-package br.com.postech.pagamento.business.usecases;
+package br.com.postech.pagamento.business.usecases.implementation;
 
 import br.com.postech.pagamento.adapters.dto.AlteraStatusDTO;
-import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.drivers.external.PedidoGateway;
+import br.com.postech.pagamento.business.usecases.UseCase;
+import br.com.postech.pagamento.business.usecases.UseCaseSemResposta;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Component("alteraStatusUseCase")
-public class AlterarStatusUseCase implements UseCaseSemResposta<AlteraStatusDTO>{
+public class AlterarStatusUseCase implements UseCaseSemResposta<AlteraStatusDTO> {
 
     private final UseCase<Pagamento, Pagamento> realizarPagamentoUseCase;
     private final UseCase<Pagamento, Pagamento> desfazerPagamentoUseCase;

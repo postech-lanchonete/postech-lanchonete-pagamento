@@ -1,6 +1,6 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
 import br.com.postech.pagamento.adapters.repositories.PagamentoRepository;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import org.springframework.data.domain.Example;

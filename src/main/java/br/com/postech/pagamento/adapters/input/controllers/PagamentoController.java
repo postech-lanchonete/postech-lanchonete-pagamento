@@ -12,6 +12,7 @@ import br.com.postech.pagamento.drivers.web.PagamentoAPI;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,7 @@ public class PagamentoController implements PagamentoAPI {
 
     @Override
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @PatchMapping("/{id}/status/{status}")
     public void alterarStatus(String id, String status) {
         StatusPagamento statusSolicitado = possiveisStatusParaAlterar.stream()
                 .filter(s -> s.name().equals(status))

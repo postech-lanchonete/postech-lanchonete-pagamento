@@ -1,6 +1,7 @@
-package br.com.postech.pagamento.business.usecases;
+package br.com.postech.pagamento.business.usecases.implementation;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
+import br.com.postech.pagamento.business.usecases.UseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.entities.Produto;
 import br.com.postech.pagamento.core.enums.StatusPagamento;

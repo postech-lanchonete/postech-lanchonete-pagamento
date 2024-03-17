@@ -1,8 +1,7 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
 import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.core.entities.Pagamento;
-import br.com.postech.pagamento.core.entities.Pedido;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

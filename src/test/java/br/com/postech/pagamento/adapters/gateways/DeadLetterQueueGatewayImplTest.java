@@ -1,6 +1,4 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
-
-import static org.junit.jupiter.api.Assertions.*;
+package br.com.postech.pagamento.adapters.gateways;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

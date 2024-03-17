@@ -1,6 +1,6 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
-import br.com.postech.pagamento.adapters.gateways.DeadLetterQueueGateway;
+import br.com.postech.pagamento.drivers.external.DeadLetterQueueGateway;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 

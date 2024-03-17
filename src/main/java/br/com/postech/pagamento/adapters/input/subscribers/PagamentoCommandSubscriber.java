@@ -2,15 +2,12 @@ package br.com.postech.pagamento.adapters.input.subscribers;
 
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
-import br.com.postech.pagamento.adapters.gateways.DeadLetterQueueGateway;
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
-import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
-import br.com.postech.pagamento.business.usecases.UseCase;
+import br.com.postech.pagamento.drivers.external.DeadLetterQueueGateway;
+import br.com.postech.pagamento.drivers.external.PagamentoGateway;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.drivers.web.PagamentoCommandAPI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

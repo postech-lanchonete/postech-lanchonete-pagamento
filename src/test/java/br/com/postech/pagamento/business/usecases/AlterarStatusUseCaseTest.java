@@ -1,14 +1,11 @@
 package br.com.postech.pagamento.business.usecases;
 
 import br.com.postech.pagamento.adapters.dto.AlteraStatusDTO;
-import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.drivers.external.PedidoGateway;
+import br.com.postech.pagamento.business.usecases.implementation.AlterarStatusUseCase;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import br.com.postech.pagamento.core.enums.StatusPagamento;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 

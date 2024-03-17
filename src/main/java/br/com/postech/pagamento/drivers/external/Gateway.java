@@ -1,4 +1,4 @@
-package br.com.postech.pagamento.adapters.gateways;
+package br.com.postech.pagamento.drivers.external;
 
 import org.springframework.data.domain.Example;
 

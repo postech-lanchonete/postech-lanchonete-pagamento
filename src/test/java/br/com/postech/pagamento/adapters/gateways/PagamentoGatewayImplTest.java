@@ -1,6 +1,5 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
-import br.com.postech.pagamento.adapters.gateways.PagamentoGateway;
 import br.com.postech.pagamento.adapters.repositories.PagamentoRepository;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import org.junit.jupiter.api.Test;
@@ -12,9 +11,7 @@ import org.springframework.data.domain.Example;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

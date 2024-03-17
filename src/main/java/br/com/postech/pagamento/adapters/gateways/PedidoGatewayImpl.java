@@ -1,6 +1,6 @@
-package br.com.postech.pagamento.adapters.gateways.implementation;
+package br.com.postech.pagamento.adapters.gateways;
 
-import br.com.postech.pagamento.adapters.gateways.PedidoGateway;
+import br.com.postech.pagamento.drivers.external.PedidoGateway;
 import br.com.postech.pagamento.business.exceptions.BadRequestException;
 import br.com.postech.pagamento.core.entities.Pagamento;
 import com.fasterxml.jackson.core.JsonProcessingException;
