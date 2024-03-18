@@ -20,12 +20,6 @@ public class RealizarPagamentoUseCase implements UseCase<Pagamento, Pagamento> {
 
     @Override
     public Pagamento realizar(Pagamento pagamento) {
-        var valorTotal = pagamento.getPedido().getProdutos().stream()
-                .map(Produto::getPreco)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        pagamento.setValor(valorTotal);
-        pagamento.setStatus(StatusPagamento.PENDENTE);
-        this.pagamentoGateway.salvar(pagamento);
         log.info("Realizando pagamento do cliente {}...", pagamento.getPedido().getIdCliente());
         pagamento.setStatus(StatusPagamento.APROVADO);
         log.info("Pagamento realizado com sucesso");

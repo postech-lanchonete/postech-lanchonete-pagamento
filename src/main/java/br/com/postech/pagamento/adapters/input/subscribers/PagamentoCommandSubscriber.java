@@ -2,6 +2,8 @@ package br.com.postech.pagamento.adapters.input.subscribers;
 
 import br.com.postech.pagamento.adapters.adapter.PagamentoAdapter;
 import br.com.postech.pagamento.adapters.dto.PagamentoRequestDTO;
+import br.com.postech.pagamento.core.entities.Produto;
+import br.com.postech.pagamento.core.enums.StatusPagamento;
 import br.com.postech.pagamento.drivers.external.DeadLetterQueueGateway;
 import br.com.postech.pagamento.drivers.external.PagamentoGateway;
 import br.com.postech.pagamento.core.entities.Pagamento;
@@ -11,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @Slf4j
 @Component
@@ -38,6 +42,11 @@ public class PagamentoCommandSubscriber implements PagamentoCommandAPI {
              log.info("Received Message: " + pagamentoJson);
              PagamentoRequestDTO pagamentoRequest = objectMapper.readValue(pagamentoJson, PagamentoRequestDTO.class);
              Pagamento pagamento = pagamentoAdapter.toEntity(pagamentoRequest);
+             var valorTotal = pagamento.getPedido().getProdutos().stream()
+                     .map(Produto::getPreco)
+                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+             pagamento.setValor(valorTotal);
+             pagamento.setStatus(StatusPagamento.PENDENTE);
              pagamentoGateway.salvar(pagamento);
         } catch (Exception e) {
             log.error("Erro ao processar a mensagem JSON: " + e.getMessage());
