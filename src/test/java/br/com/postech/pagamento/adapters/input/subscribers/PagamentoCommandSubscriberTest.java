@@ -8,6 +8,7 @@ import br.com.postech.pagamento.drivers.external.PagamentoGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -24,7 +25,7 @@ class PagamentoCommandSubscriberTest {
     private ObjectMapper objectMapper;
 
     @Spy
-    private PagamentoAdapter pagamentoAdapter;
+    private PagamentoAdapter pagamentoAdapter = Mappers.getMapper(PagamentoAdapter.class);;
 
     @Mock
     private PagamentoGateway pagamentoGateway;
@@ -36,7 +37,7 @@ class PagamentoCommandSubscriberTest {
 
     @Test
     void pagar_Success() {
-        String pagamentoJson = "{\"pedido\": {\"id\": 1, \"idCliente\": 100}}";
+        String pagamentoJson = "{\"pedido\": {\"id\": 1, \"idCliente\": 100, \"produtos\":[{\"nome\":\"Batata frita\",\"preco\":\"10\"}]}}";
         PagamentoRequestDTO pagamentoRequestDTO = new PagamentoRequestDTO();
         pagamentoRequestDTO.setPedido(new PedidoDTO());
         pagamentoRequestDTO.getPedido().setIdCliente(1L);

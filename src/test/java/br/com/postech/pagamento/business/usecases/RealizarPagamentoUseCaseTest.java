@@ -37,6 +37,6 @@ class RealizarPagamentoUseCaseTest {
 
         assertEquals(StatusPagamento.APROVADO, resultado.getStatus());
         assertEquals(valorTotal, resultado.getValor());
-        verify(pagamentoGateway, times(2)).salvar(pagamento);
+        verify(pagamentoGateway, times(1)).salvar(pagamento);
     }
 }
